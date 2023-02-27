@@ -5,17 +5,18 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from "react";
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
+  Text, TextInput, TouchableOpacity,
   useColorScheme,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 
 import {
   Colors,
@@ -57,62 +58,58 @@ function Section({children, title}: SectionProps): JSX.Element {
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const [counter, setCounter]  = useState(0);
+  const [inputString, setInputString] = useState('');
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const incrementCounter = () => {
+    setCounter(counter + 1);
+  };
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <View style={styles.container}>
+      <View>
+        <TouchableOpacity style={styles.button} onPress={incrementCounter}>
+          <Text>Click me</Text>
+        </TouchableOpacity>
+        <View>
+          <Text>You clicked {counter} times</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+      <View>
+        <View>
+          <Text>Text Input: </Text>
+        </View>
+        <TextInput style={styles.input} placeholder={'Enter Text Here'} onChangeText={(val) => setInputString(val)} defaultValue={inputString} />
+        {inputString.length > 0 && <Text>{inputString}</Text>}
+      </View>
+
+    </View>
   );
 }
 
+// React Native Styles
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    marginBottom: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  input: {
+    height: 40,
+    borderStyle: 'solid',
+    borderColor: 'black',
+  }
 });
 
 export default App;
