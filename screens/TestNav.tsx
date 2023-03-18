@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-const TestNav = ({ navigate }) => {
+const TestNav: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Test Navigation</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-  }
+  },
 });
 
 export default TestNav;

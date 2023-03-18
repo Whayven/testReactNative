@@ -1,22 +1,22 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
-import { useNavigation } from '@react-navigation/native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
+type Nav = {
+  navigate: (screen: string) => void;
+};
 
 const HomeScreen = () => {
   const [counter, setCounter] = useState(0);
-  const navigation = useNavigation();
-
-
+  const navigation = useNavigation<Nav>();
 
   const incrementCounter = () => {
     setCounter(counter + 1);
-  }
+  };
 
   const multiplyCounter = () => {
     setCounter(counter * 2);
-  }
-
+  };
 
   return (
     <View style={styles.container}>
@@ -30,13 +30,17 @@ const HomeScreen = () => {
         <View>
           <Text>You clicked {counter} times</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Test')}}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('Test');
+          }}>
           <Text>Go to Test Navigation</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 // React Native Styles
 const styles = StyleSheet.create({
   container: {
@@ -55,7 +59,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderStyle: 'solid',
     borderColor: 'black',
-  }
+  },
 });
 
 export default HomeScreen;
